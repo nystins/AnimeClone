@@ -10,7 +10,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddDbContext<AnimeDbContext>((options) =>
 {
-    //options.UseSqlServer("");
+    options.UseSqlServer("Server=localhost,1433;Database=tempdb;User ID=sa;Password=f7853156-1b71-451d-b9fb-611e167b9a00;Persist Security Info=False;TrustServerCertificate=true;");
 });
 
 var app = builder.Build();
@@ -25,7 +25,9 @@ if (!app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AnimeDbContext>();
-    db.Database.Migrate();
+    DataSeeder seeder = new(db);
+    await seeder.Seed();
+    //db.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

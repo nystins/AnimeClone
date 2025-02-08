@@ -119,7 +119,8 @@ public class DataSeeder
 
     public async Task Seed()
     {
-        string jsonString = await File.ReadAllTextAsync("");
+        var dir = Directory.GetCurrentDirectory();
+        string jsonString = await File.ReadAllTextAsync(@"D:\C#\AnimeClone\resources\anime-offline-database.json");
         _context.Database.Migrate(); // Apply migrations if not applied
 
         var animeList = JsonConvert.DeserializeObject<AnimeData>(jsonString);
