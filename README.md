@@ -6,8 +6,6 @@ An myanimelist/anilist clone.
 - Radzen
 ### Database:
 - SQL
+- JSON provided by: [manami-project](https://github.com/manami-project/anime-offline-database)
 ### Back-end:
 - .NET Core
-
-
-test
