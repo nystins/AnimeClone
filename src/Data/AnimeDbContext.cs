@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using AnimeClone.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +12,16 @@ public class AnimeDbContext : DbContext
 
     public AnimeDbContext(DbContextOptions<AnimeDbContext> options) : base(options) { }
 
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    base.OnConfiguring(optionsBuilder);
+
+    //    optionsBuilder.UseSeeding((context, seed) =>
+    //    {
+    //        seed = true;
+    //    });
+    //}
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -24,7 +33,7 @@ public class AnimeDbContext : DbContext
         // Anime - Duration (one-to-one relationship)
         modelBuilder.Entity<Anime>()
             .HasOne(a => a.Duration);
-        
+
         // Ensure unique AnimeSeason combination
         modelBuilder.Entity<AnimeSeason>()
             .HasIndex(a => new { a.Season, a.Year })
@@ -38,7 +47,7 @@ public class AnimeDbContext : DbContext
         modelBuilder.Entity<Tag>()
             .HasIndex(t => new { t.Name })
             .IsUnique();
-        
+
         modelBuilder.Entity<AnimeTag>()
             .HasKey(at => new { at.AnimeId, at.TagId });
 
