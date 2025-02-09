@@ -119,8 +119,13 @@ public class DataSeeder
 
     public async Task Seed()
     {
+        // /Users/john/Documents/github/AnimeClone/src
+
         var dir = Directory.GetCurrentDirectory();
-        string jsonString = await File.ReadAllTextAsync(@"D:\C#\AnimeClone\resources\anime-offline-database.json");
+        Console.WriteLine("John:" + dir);
+        // string jsonString = await File.ReadAllTextAsync(@"D:\C#\AnimeClone\resources\anime-offline-database.json");
+        string jsonString = await File.ReadAllTextAsync($"{dir}/resources/anime-offline-database.json");
+        Console.WriteLine("John2: "+ jsonString);
         _context.Database.EnsureDeleted();
         //_context.Database.EnsureCreated();
         _context.Database.Migrate(); // Apply migrations if not applied
