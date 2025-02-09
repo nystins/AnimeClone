@@ -121,30 +121,39 @@ public class DataSeeder
     {
         var dir = Directory.GetCurrentDirectory();
         string jsonString = await File.ReadAllTextAsync(@"D:\C#\AnimeClone\resources\anime-offline-database.json");
+        _context.Database.EnsureDeleted();
+        //_context.Database.EnsureCreated();
         _context.Database.Migrate(); // Apply migrations if not applied
 
-        var animeList = JsonConvert.DeserializeObject<AnimeData>(jsonString);
-        if (animeList == null || _context.Animes.Any()) return;
-
-        foreach (var anime in animeList.Animes)
+        var jsonSettings = new JsonSerializerSettings()
         {
-            var season = _context.AnimeSeasons.FirstOrDefault(s => s.Season == anime.AnimeSeason.Season && s.Year == anime.AnimeSeason.Year);
-            if (season == null)
+            NullValueHandling = NullValueHandling.Ignore,
+        };
+
+        var animeList = JsonConvert.DeserializeObject<IEnumerable<Anime>>(jsonString, jsonSettings);
+        if ((animeList == null) || _context.Animes.Any()) return;
+
+        foreach (var anime in animeList.Take(1000))
+        {
+            var season = _context.AnimeSeasons.Where(s => anime.AnimeSeason != null && (s.Season == anime.AnimeSeason.Season && s.Year == anime.AnimeSeason.Year)).FirstOrDefault();
+
+            if (season == null && anime.AnimeSeason != null)
             {
                 season = new AnimeSeason { Season = anime.AnimeSeason.Season, Year = anime.AnimeSeason.Year };
                 _context.AnimeSeasons.Add(season);
+                _context.SaveChanges();
             }
 
-            var duration = _context.Durations.FirstOrDefault(d => d.Value == anime.Duration.Value && d.Unit == anime.Duration.Unit);
-            if (duration == null)
+            var duration = _context.Durations.FirstOrDefault(d => anime.Duration != null && (d.Value == anime.Duration.Value && d.Unit == anime.Duration.Unit));
+            if (duration == null && anime.Duration != null)
             {
                 duration = new Duration { Value = anime.Duration.Value, Unit = anime.Duration.Unit };
                 _context.Durations.Add(duration);
+                _context.SaveChanges();
             }
-            _context.SaveChanges(); // Save anime first to get its ID
 
-            anime.DurationId = duration.Id;
-            anime.AnimeSeasonId = season.Id;
+            anime.DurationId = duration?.Id;
+            anime.AnimeSeasonId = season?.Id;
 
             _context.Animes.Add(anime);
             _context.SaveChanges(); // Save anime first to get its ID
@@ -154,19 +163,13 @@ public class DataSeeder
             {
                 foreach (var tag in anime.Tags)
                 {
-                    var _tag = _context.Tags.FirstOrDefault(t => t.Name == tag.Name);
+                    var _tag = _context.Tags.FirstOrDefault(t => t.Name == tag);
                     if (_tag == null)
                     {
-                        _tag = new Tag { Name = tag.Name };
-                        _context.Tags.Add(tag);
+                        _tag = new Tag { Name = tag };
+                        _context.Tags.Add(_tag);
                         _context.SaveChanges();
                     }
-
-                    //if (tag.Id == 0) // New tag, add to DB
-                    //{
-                    //    _context.Tags.Add(tag);
-                    //    _context.SaveChanges();
-                    //}
 
                     var animeTag = new AnimeTag { AnimeId = anime.Id, TagId = _tag.Id };
                     _context.Add(animeTag);

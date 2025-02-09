@@ -22,7 +22,7 @@ public class Anime
     public ICollection<string> Synonyms { get; set; }
     public ICollection<string> RelatedAnime { get; set; }
     public ICollection<AnimeTag> AnimeTags { get; set; }
-    public ICollection<Tag>? Tags { get; set; }
+    public List<string>? Tags { get; set; }
 
 
 }

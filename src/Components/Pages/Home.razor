@@ -1,7 +1,13 @@
 ﻿@page "/"
-
+@using AnimeClone.Data
+@using Microsoft.EntityFrameworkCore
+@inject AnimeDbContext animeDbContext
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
-
-Welcome to your new app.
+<ul>
+    @foreach (var anime in animeDbContext.Animes.ToList())
+    {
+        <li>@anime.Title</li>
+    }
+</ul>
