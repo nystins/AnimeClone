@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimeClone", "src\AnimeClone.csproj", "{DC0B5BD2-5342-45DB-BF84-1BDF12B7E83D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{ED2F9B1A-E9EB-4936-9229-F09AAD4DB032}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DC0B5BD2-5342-45DB-BF84-1BDF12B7E83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC0B5BD2-5342-45DB-BF84-1BDF12B7E83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC0B5BD2-5342-45DB-BF84-1BDF12B7E83D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2F9B1A-E9EB-4936-9229-F09AAD4DB032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2F9B1A-E9EB-4936-9229-F09AAD4DB032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2F9B1A-E9EB-4936-9229-F09AAD4DB032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2F9B1A-E9EB-4936-9229-F09AAD4DB032}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

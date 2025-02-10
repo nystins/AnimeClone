@@ -1,0 +1,20 @@
+services:
+  mssql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=y
+      - MSSQL_SA_PASSWORD=VeryStrongPassword135!%$
+    volumes:
+      - sql-server-data:/var/opt/mssql
+  animeclone:
+    image: ${DOCKER_REGISTRY-}animeclone
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+
+volumes:
+  sql-server-data:
+    name: sql-data
