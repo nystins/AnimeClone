@@ -11,6 +11,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDbContext<AnimeDbContext>((options) =>
 {
     // options.UseSqlServer(@"Data Source=LEVAR\SQLEXPRESS;Initial Catalog=AnimeCloneDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+    //sql_server is the mssql container_name
     options.UseSqlServer(@"Server=sql_server;Database=AnimeCloneDb;User=sa;password=VeryStrongPassword135!%$;TrustServerCertificate=True");
 });
 
