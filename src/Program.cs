@@ -4,15 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddQuickGridEntityFrameworkAdapter();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddMudServices();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddDbContext<AnimeDbContext>((options) =>
+builder.Services.AddDbContextFactory<AnimeCloneContext>((options) =>
 {
     // options.UseSqlServer(@"Data Source=LEVAR\SQLEXPRESS;Initial Catalog=AnimeCloneDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
     //sql_server is the mssql container_name
@@ -30,7 +33,7 @@ if (!app.Environment.IsDevelopment())
 }
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AnimeDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<AnimeCloneContext>();
     DataSeeder seeder = new(db);
     await seeder.Seed();
     //await db.Database.EnsureCreatedAsync();

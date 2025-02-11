@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnimeClone.Data;
 
-public class AnimeDbContext : DbContext
+public class AnimeCloneContext : DbContext
 {
     public DbSet<Anime> Animes { get; set; }
 
@@ -14,7 +14,7 @@ public class AnimeDbContext : DbContext
     public DbSet<Duration> Durations { get; set; }
     public DbSet<Tag> Tags { get; set; }
 
-    public AnimeDbContext(DbContextOptions<AnimeDbContext> options) : base(options)
+    public AnimeCloneContext(DbContextOptions<AnimeCloneContext> options) : base(options)
     {
     }
 

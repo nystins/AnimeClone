@@ -1,7 +1,7 @@
 ﻿@page "/animes/create"
 @using Microsoft.EntityFrameworkCore
 @using AnimeClone.Models
-@inject IDbContextFactory<AnimeClone.Data.AnimeCloneContext> DbFactory
+@inject IDbContextFactory<AnimeCloneContext> DbFactory
 @inject NavigationManager NavigationManager
 
 <PageTitle>Create</PageTitle>
@@ -55,26 +55,26 @@
                 <InputNumber id="animeseasonid" @bind-Value="Anime.AnimeSeasonId" class="form-control" /> 
                 <ValidationMessage For="() => Anime.AnimeSeasonId" class="text-danger" /> 
             </div>        
-            <div class="mb-3">
-                <label for="sources" class="form-label">Sources:</label> 
-                <InputText id="sources" @bind-Value="Anime.Sources" class="form-control" /> 
-                <ValidationMessage For="() => Anime.Sources" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
-                <label for="synonyms" class="form-label">Synonyms:</label> 
-                <InputText id="synonyms" @bind-Value="Anime.Synonyms" class="form-control" /> 
-                <ValidationMessage For="() => Anime.Synonyms" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
-                <label for="relatedanime" class="form-label">RelatedAnime:</label> 
-                <InputText id="relatedanime" @bind-Value="Anime.RelatedAnime" class="form-control" /> 
-                <ValidationMessage For="() => Anime.RelatedAnime" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
-                <label for="tags" class="form-label">Tags:</label> 
-                <InputText id="tags" @bind-Value="Anime.Tags" class="form-control" /> 
-                <ValidationMessage For="() => Anime.Tags" class="text-danger" /> 
-            </div>        
+            @* <div class="mb-3"> *@
+            @*     <label for="sources" class="form-label">Sources:</label>  *@
+            @*     <InputText id="sources" @bind-Value="Anime.Sources" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.Sources" class="text-danger" />  *@
+            @* </div>         *@
+            @* <div class="mb-3"> *@
+            @*     <label for="synonyms" class="form-label">Synonyms:</label>  *@
+            @*     <InputText id="synonyms" @bind-Value="Anime.Synonyms" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.Synonyms" class="text-danger" />  *@
+            @* </div>         *@
+            @* <div class="mb-3"> *@
+            @*     <label for="relatedanime" class="form-label">RelatedAnime:</label>  *@
+            @*     <InputText id="relatedanime" @bind-Value="Anime.RelatedAnime" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.RelatedAnime" class="text-danger" />  *@
+            @* </div>         *@
+            @* <div class="mb-3"> *@
+            @*     <label for="tags" class="form-label">Tags:</label>  *@
+            @*     <InputText id="tags" @bind-Value="Anime.Tags" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.Tags" class="text-danger" />  *@
+            @* </div>         *@
             <button type="submit" class="btn btn-primary">Create</button>
         </EditForm>
     </div>

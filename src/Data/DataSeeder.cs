@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 
 public class DataSeeder
 {
-    private readonly AnimeDbContext _context;
+    private readonly AnimeCloneContext _context;
 
-    public DataSeeder(AnimeDbContext context)
+    public DataSeeder(AnimeCloneContext context)
     {
         _context = context;
     }
