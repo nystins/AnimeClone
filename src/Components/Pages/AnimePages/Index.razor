@@ -1,0 +1,47 @@
+﻿@page "/animes"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using AnimeClone.Models
+@using AnimeClone.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<AnimeClone.Data.AnimeCloneContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="animes/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Anime">
+    <PropertyColumn Property="anime => anime.Title" />
+    <PropertyColumn Property="anime => anime.Type" />
+    <PropertyColumn Property="anime => anime.Episodes" />
+    <PropertyColumn Property="anime => anime.Status" />
+    <PropertyColumn Property="anime => anime.Picture" />
+    <PropertyColumn Property="anime => anime.Thumbnail" />
+    <PropertyColumn Property="anime => anime.DurationId" />
+    <PropertyColumn Property="anime => anime.AnimeSeasonId" />
+    <PropertyColumn Property="anime => anime.Sources" />
+    <PropertyColumn Property="anime => anime.Synonyms" />
+    <PropertyColumn Property="anime => anime.RelatedAnime" />
+    <PropertyColumn Property="anime => anime.Tags" />
+
+    <TemplateColumn Context="anime">
+        <a href="@($"animes/edit?id={anime.Id}")">Edit</a> |
+        <a href="@($"animes/details?id={anime.Id}")">Details</a> |
+        <a href="@($"animes/delete?id={anime.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private AnimeCloneContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -1,8 +1,12 @@
 using AnimeClone.Components;
 using AnimeClone.Data;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddQuickGridEntityFrameworkAdapter();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddMudServices();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

@@ -35,7 +35,7 @@ public class DataSeeder
         var tagsList = new List<Tag>();
         var animeInsertList = new List<Anime>();
 
-        foreach (var anime in animeList.Take(1000))
+        foreach (var anime in animeList.Take(100))
         {
             // Use local list to check if AnimeSeason exists
             //Console.WriteLine(anime.AnimeSeason.Season);
@@ -49,7 +49,8 @@ public class DataSeeder
                 {
                     season = new AnimeSeason
                     {
-                        Season = anime.AnimeSeason.Season, Year = anime.AnimeSeason.Year
+                        Season = anime.AnimeSeason.Season,
+                        Year = anime.AnimeSeason.Year
                     };
                     animeSeasonsList.Add(season);
                     //_context.AnimeSeasons.Add(season);  
@@ -67,7 +68,8 @@ public class DataSeeder
                 {
                     duration = new Duration
                     {
-                        Value = anime.Duration.Value, Unit = anime.Duration.Unit
+                        Value = anime.Duration.Value,
+                        Unit = anime.Duration.Unit
                     };
                     durationsList.Add(duration);
                 }
@@ -76,7 +78,7 @@ public class DataSeeder
             // Assign IDs
             anime.DurationId = duration?.Id;
             anime.AnimeSeasonId = season?.Id;
-            
+
             // Handle tags using a local list
             if (anime.Tags != null && anime.Tags.Count > 0)
             {
@@ -144,7 +146,8 @@ public class DataSeeder
                         }
                         newAnimeTags.Add(new AnimeTag
                         {
-                            AnimeId = anime.Id, TagId = tag.Id
+                            AnimeId = anime.Id,
+                            TagId = tag.Id
                         });
                     }
                 }
