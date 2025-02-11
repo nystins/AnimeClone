@@ -1,7 +1,7 @@
 ﻿@page "/animes/delete"
 @using Microsoft.EntityFrameworkCore
 @using AnimeClone.Models
-@inject IDbContextFactory<AnimeClone.Data.AnimeCloneContext> DbFactory
+@inject IDbContextFactory<AnimeCloneContext> DbFactory
 @inject NavigationManager NavigationManager
 
 <PageTitle>Delete</PageTitle>
@@ -81,7 +81,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        anime = await context.Anime.FirstOrDefaultAsync(m => m.Id == Id);
+        anime = await context.Animes.FirstOrDefaultAsync(m => m.Id == Id);
 
         if (anime is null)
         {
@@ -92,7 +92,7 @@
     private async Task DeleteAnime()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Anime.Remove(anime!);
+        context.Animes.Remove(anime!);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/animes");
     }

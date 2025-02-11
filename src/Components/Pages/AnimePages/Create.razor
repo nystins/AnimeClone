@@ -92,7 +92,7 @@
     private async Task AddAnime()
     {
         using var context = DbFactory.CreateDbContext();
-        context.Anime.Add(Anime);
+        context.Animes.Add(Anime);
         await context.SaveChangesAsync();
         NavigationManager.NavigateTo("/animes");
     }

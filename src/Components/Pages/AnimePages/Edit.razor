@@ -1,6 +1,4 @@
 ﻿@page "/animes/edit"
-@using Microsoft.EntityFrameworkCore
-@using AnimeClone.Models
 @inject IDbContextFactory<AnimeCloneContext> DbFactory
 @inject NavigationManager NavigationManager
 
@@ -102,7 +100,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Anime ??= await context.Anime.FirstOrDefaultAsync(m => m.Id == Id);
+        Anime ??= await context.Animes.FirstOrDefaultAsync(m => m.Id == Id);
 
         if (Anime is null)
         {
@@ -139,6 +137,6 @@ else
     private bool AnimeExists(int id)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Anime.Any(e => e.Id == id);
+        return context.Animes.Any(e => e.Id == id);
     }
 }

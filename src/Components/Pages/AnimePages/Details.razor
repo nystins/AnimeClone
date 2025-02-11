@@ -1,7 +1,5 @@
 ﻿@page "/animes/details"
-@using Microsoft.EntityFrameworkCore
-@using AnimeClone.Models
-@inject IDbContextFactory<AnimeClone.Data.AnimeCloneContext> DbFactory
+@inject IDbContextFactory<AnimeCloneContext> DbFactory
 @inject NavigationManager NavigationManager
 
 <PageTitle>Details</PageTitle>
@@ -58,7 +56,7 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        anime = await context.Anime.FirstOrDefaultAsync(m => m.Id == Id);
+        anime = await context.Animes.FirstOrDefaultAsync(m => m.Id == Id);
 
         if (anime is null)
         {
