@@ -1,0 +1,99 @@
+﻿@page "/animes/create"
+@using Microsoft.EntityFrameworkCore
+@using AnimeClone.Models
+@inject IDbContextFactory<AnimeCloneContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Anime</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Anime" OnValidSubmit="AddAnime" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label> 
+                <InputText id="title" @bind-Value="Anime.Title" class="form-control" /> 
+                <ValidationMessage For="() => Anime.Title" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="type" class="form-label">Type:</label> 
+                <InputText id="type" @bind-Value="Anime.Type" class="form-control" /> 
+                <ValidationMessage For="() => Anime.Type" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="episodes" class="form-label">Episodes:</label> 
+                <InputNumber id="episodes" @bind-Value="Anime.Episodes" class="form-control" /> 
+                <ValidationMessage For="() => Anime.Episodes" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label> 
+                <InputText id="status" @bind-Value="Anime.Status" class="form-control" /> 
+                <ValidationMessage For="() => Anime.Status" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="picture" class="form-label">Picture:</label> 
+                <InputText id="picture" @bind-Value="Anime.Picture" class="form-control" /> 
+                <ValidationMessage For="() => Anime.Picture" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="thumbnail" class="form-label">Thumbnail:</label> 
+                <InputText id="thumbnail" @bind-Value="Anime.Thumbnail" class="form-control" /> 
+                <ValidationMessage For="() => Anime.Thumbnail" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="durationid" class="form-label">DurationId:</label> 
+                <InputNumber id="durationid" @bind-Value="Anime.DurationId" class="form-control" /> 
+                <ValidationMessage For="() => Anime.DurationId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="animeseasonid" class="form-label">AnimeSeasonId:</label> 
+                <InputNumber id="animeseasonid" @bind-Value="Anime.AnimeSeasonId" class="form-control" /> 
+                <ValidationMessage For="() => Anime.AnimeSeasonId" class="text-danger" /> 
+            </div>        
+            @* <div class="mb-3"> *@
+            @*     <label for="sources" class="form-label">Sources:</label>  *@
+            @*     <InputText id="sources" @bind-Value="Anime.Sources" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.Sources" class="text-danger" />  *@
+            @* </div>         *@
+            @* <div class="mb-3"> *@
+            @*     <label for="synonyms" class="form-label">Synonyms:</label>  *@
+            @*     <InputText id="synonyms" @bind-Value="Anime.Synonyms" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.Synonyms" class="text-danger" />  *@
+            @* </div>         *@
+            @* <div class="mb-3"> *@
+            @*     <label for="relatedanime" class="form-label">RelatedAnime:</label>  *@
+            @*     <InputText id="relatedanime" @bind-Value="Anime.RelatedAnime" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.RelatedAnime" class="text-danger" />  *@
+            @* </div>         *@
+            @* <div class="mb-3"> *@
+            @*     <label for="tags" class="form-label">Tags:</label>  *@
+            @*     <InputText id="tags" @bind-Value="Anime.Tags" class="form-control" />  *@
+            @*     <ValidationMessage For="() => Anime.Tags" class="text-danger" />  *@
+            @* </div>         *@
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/animes">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Anime Anime { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddAnime()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Animes.Add(Anime);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/animes");
+    }
+}
