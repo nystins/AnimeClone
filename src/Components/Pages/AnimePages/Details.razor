@@ -1,0 +1,66 @@
+﻿@page "/animes/details"
+@inject IDbContextFactory<AnimeCloneContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Anime</h2>
+    <hr />
+    @if (anime is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Title</dt>
+            <dd class="col-sm-10">@anime.Title</dd>
+            <dt class="col-sm-2">Type</dt>
+            <dd class="col-sm-10">@anime.Type</dd>
+            <dt class="col-sm-2">Episodes</dt>
+            <dd class="col-sm-10">@anime.Episodes</dd>
+            <dt class="col-sm-2">Status</dt>
+            <dd class="col-sm-10">@anime.Status</dd>
+            <dt class="col-sm-2">Picture</dt>
+            <dd class="col-sm-10">@anime.Picture</dd>
+            <dt class="col-sm-2">Thumbnail</dt>
+            <dd class="col-sm-10">@anime.Thumbnail</dd>
+            <dt class="col-sm-2">DurationId</dt>
+            <dd class="col-sm-10">@anime.DurationId</dd>
+            <dt class="col-sm-2">AnimeSeasonId</dt>
+            <dd class="col-sm-10">@anime.AnimeSeasonId</dd>
+            <dt class="col-sm-2">Sources</dt>
+            <dd class="col-sm-10">@anime.Sources</dd>
+            <dt class="col-sm-2">Synonyms</dt>
+            <dd class="col-sm-10">@anime.Synonyms</dd>
+            <dt class="col-sm-2">RelatedAnime</dt>
+            <dd class="col-sm-10">@anime.RelatedAnime</dd>
+            <dt class="col-sm-2">Tags</dt>
+            <dd class="col-sm-10">@anime.Tags</dd>
+        </dl>
+        <div>
+            <a href="@($"/animes/edit?id={anime.Id}")">Edit</a> |
+            <a href="@($"/animes")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Anime? anime;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        anime = await context.Animes.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (anime is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

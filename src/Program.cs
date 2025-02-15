@@ -1,17 +1,25 @@
 using AnimeClone.Components;
 using AnimeClone.Data;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddQuickGridEntityFrameworkAdapter();
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddMudServices();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddDbContext<AnimeDbContext>((options) =>
+builder.Services.AddDbContextFactory<AnimeCloneContext>((options) =>
 {
     // options.UseSqlServer(@"Data Source=LEVAR\SQLEXPRESS;Initial Catalog=AnimeCloneDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
-    options.UseSqlServer(@"Server=localhost,1433;Database=AnimeCloneDb;User Id=sa;password=VeryStrongPassword135!%$;TrustServerCertificate=True");
+    //sql_server is the mssql container_name
+    options.UseSqlServer(@"Server=sql_server;Database=AnimeCloneDb;User=sa;password=VeryStrongPassword135!%$;TrustServerCertificate=True");
 });
 
 var app = builder.Build();
@@ -25,7 +33,7 @@ if (!app.Environment.IsDevelopment())
 }
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AnimeDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<AnimeCloneContext>();
     DataSeeder seeder = new(db);
     await seeder.Seed();
     //await db.Database.EnsureCreatedAsync();
